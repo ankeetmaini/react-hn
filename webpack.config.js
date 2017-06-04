@@ -7,7 +7,6 @@ const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin')[
   'default'
 ];
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const ExtractModules = new ExtractTextPlugin('stylesheets/[name]-modules.css');
@@ -80,7 +79,6 @@ const webpackConfig = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CaseSensitivePathsPlugin(),
-    new DirectoryNamedWebpackPlugin(true),
     ExtractGlobal,
     ExtractModules,
     ExtractVendor,

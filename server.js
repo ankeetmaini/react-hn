@@ -2,12 +2,19 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const bodyParser = require('body-parser');
+const https = require('https');
+const fs = require('fs');
 
 const env = process.env.NODE_ENV;
 const isDevelopment = env !== 'production';
 const port = isDevelopment ? 3000 : process.env.PORT;
 const app = express();
 const publicPath = path.resolve(__dirname, 'public');
+
+const httpsOptions = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem'),
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -65,10 +72,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.listen(port, () => {
+https.createServer(httpsOptions, app).listen(port, () => {
   if (isDevelopment) {
     const open = require('open');
-    open('http://localhost:3000');
+    open('https://localhost:3000');
   }
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at https://localhost:${port}`);
 });
