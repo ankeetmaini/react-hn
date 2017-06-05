@@ -1,0 +1,20 @@
+@import '../../variables.scss';
+
+.story {
+  margin-bottom: 2px;
+
+  .url {
+    color: var(--link-black);
+    text-decoration: none;
+  }
+
+  .title {
+    color: var(--text-black);
+    font-size: 0.95em;
+  }
+
+  .small {
+    font-size: 0.8em;
+  }
+}
+
