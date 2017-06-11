@@ -19,6 +19,8 @@ const categoriesMap = {
   jobs: 'jobstories',
 };
 
+const Loading = () => <h2>Loading...</h2>;
+
 class Stories extends Component {
   componentDidMount () {
     // fetch catalog, which means only ids
@@ -53,29 +55,61 @@ class Stories extends Component {
     }
   }
 
+  changePage (page) {
+    if (
+      page > 0 &&
+      page <= safeTraverse(this.props, ['catalog', 'totalPages'])
+    ) {
+      const tab = categoriesMap[this.props.match.params.type];
+      this.props.changePage({ type: tab, page });
+    }
+  }
+
   render () {
     const currentPage = safeTraverse(this.props, ['catalog', 'page']);
+    const totalPages = safeTraverse(this.props, ['catalog', 'totalPages']);
     const startingIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endingIndex = startingIndex + ITEMS_PER_PAGE;
-
+    const stories =
+      this.props.catalog.asyncStatus === 'SUCCESS' &&
+      this.props.catalog.data
+        .slice(startingIndex, endingIndex)
+        .map((id, index) => {
+          if (
+            !this.props.stories[id] ||
+            this.props.stories[id].asyncStatus !== SUCCESS
+          ) {
+            return null;
+          }
+          return (
+            <div className={styles.row} key={id}>
+              <div className={styles.number}>{startingIndex + 1 + index}.</div>
+              <Story {...this.props.stories[id]} />
+            </div>
+          );
+        })
+        .filter(s => !!s);
     return (
       <div className={styles.list}>
-        {this.props.catalog &&
-          this.props.catalog.asyncStatus === 'PENDING' &&
-          <h2>Loading</h2>}
-        <ol className={styles.orderedList}>
-          {this.props.catalog &&
-            this.props.catalog.asyncStatus === 'SUCCESS' &&
-            this.props.catalog.data
-              .slice(startingIndex, endingIndex)
-              .map((id) => {
-                if (
-                  !this.props.stories[id] ||
-                  this.props.stories[id].asyncStatus !== SUCCESS
-                ) { return null; }
-                return <li key={id}><Story {...this.props.stories[id]} /></li>;
-              })}
-        </ol>
+        {this.props.catalog.asyncStatus === 'PENDING' && <Loading />}
+        <div className={styles.orderedList}>
+          {this.props.catalog.asyncStatus === 'SUCCESS' &&
+            !stories.length &&
+            <Loading />}
+          {stories}
+        </div>
+        <hr className="hr" />
+        {currentPage &&
+          totalPages &&
+          <div className={styles.center}>
+            <button onClick={this.changePage.bind(this, currentPage - 1)}>
+              prev
+            </button>
+            {currentPage} of {totalPages}
+            <button onClick={this.changePage.bind(this, currentPage + 1)}>
+              next
+            </button>
+          </div>}
       </div>
     );
   }
@@ -102,4 +136,5 @@ Stories.propTypes = {
       type: PropTypes.string,
     }),
   }).isRequired,
+  changePage: PropTypes.func.isRequired,
 };
