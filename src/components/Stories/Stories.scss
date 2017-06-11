@@ -9,4 +9,21 @@
     padding: 2px 8px 2px 24px;
     color: var(--link-black);
   }
+
+  .center {
+    text-align: center;
+
+    button {
+      padding: 4px;
+      margin: 8px;
+    }
+  }
+
+  .row {
+    display: flex;
+
+    .number {
+      margin-right: 8px;
+    }
+  }
 }
