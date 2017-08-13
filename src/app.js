@@ -9,6 +9,7 @@ import {
 import { Provider } from 'react-redux';
 import Header from 'components/Header';
 import Stories from 'components/Stories';
+import Item from 'components/Item';
 
 import store from './store';
 
@@ -20,6 +21,7 @@ const App = () => (
       <div className="app-container">
         <Header />
         <Switch>
+          <Route path="/item/:id" component={Item} />
           <Route path="/:type" component={Stories} />
           <Redirect exact to="/top" from="/" />
         </Switch>
