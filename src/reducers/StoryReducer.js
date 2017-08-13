@@ -1,6 +1,7 @@
 import {
   GET_STORY_DETAIL_SUCCESS,
   GET_STORY_DETAIL_REQUEST,
+  GET_COMMENTS_SUCCESS,
 } from 'actions/HackerNewsActions';
 
 import { PENDING, SUCCESS } from 'utils/asyncStatus';
@@ -25,6 +26,13 @@ export default function Story (state = {}, action) {
           type,
         },
       });
+    }
+
+    case GET_COMMENTS_SUCCESS: {
+      return action.payload.res.reduce((prev, curr) => {
+        prev[curr.id] = { ...curr, asyncStatus: SUCCESS };
+        return prev;
+      }, Object.assign({}, state));
     }
 
     default:

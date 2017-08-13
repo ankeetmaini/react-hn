@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+
+.list {
+  padding: 2px;
+  background: var(--background-grey);
+
+  .orderedList {
+    margin: 2px 6px;
+    padding: 2px 8px 2px 24px;
+    color: var(--link-black);
+  }
+}

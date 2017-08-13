@@ -1,6 +1,6 @@
-import fetch from 'isomorphic-fetch';
+const fetch = require('isomorphic-fetch');
 
-export default function goFetch (url, options) {
+module.exports = function goFetch (url, options) {
   return fetch(url, options)
     .then((response) => {
       if (response.ok) {
@@ -13,4 +13,4 @@ export default function goFetch (url, options) {
         );
     })
     .catch(error => Promise.reject(error));
-}
+};

@@ -4,6 +4,9 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 const https = require('https');
 const fs = require('fs');
+const fetch = require('./src/utils/fetch');
+
+const BASE_URL = 'https://hacker-news.firebaseio.com/v0';
 
 const env = process.env.NODE_ENV;
 const isDevelopment = env !== 'production';
@@ -12,8 +15,8 @@ const app = express();
 const publicPath = path.resolve(__dirname, 'public');
 
 const httpsOptions = {
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
+  key: fs.readFileSync('./certificates/key.pem'),
+  cert: fs.readFileSync('./certificates/cert.pem'),
 };
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -61,6 +64,28 @@ if (isDevelopment) {
     }),
   );
 }
+
+function getComments (allComments = [], item) {
+  // base case, no comments :P
+  allComments.push(item);
+  if (!item || !item.kids) return Promise.resolve(item);
+
+  return new Promise((resolve, reject) =>
+    Promise.all(item.kids.map(i => fetch(`${BASE_URL}/item/${i}.json`)))
+      .then(responses =>
+        Promise.all(responses.map(getComments.bind(null, allComments))),
+      )
+      .then(() => resolve(allComments))
+      .catch(err => reject(err)),
+  );
+}
+
+app.get('/comments/:itemId', (req, res) => {
+  // fetch comments recursively
+  fetch(`${BASE_URL}/item/${req.params.itemId}.json`)
+    .then(item => getComments([], item))
+    .then(items => res.status(200).send(items));
+});
 
 app.get('*', (req, res) => {
   // handle annoying favicon.ico requests
