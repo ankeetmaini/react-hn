@@ -62,7 +62,8 @@ const webpackConfig = {
         exclude: [/(global-styles\.s?css)$/, /node_modules/],
         use: ExtractModules.extract({
           fallback: 'style-loader',
-          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64]!postcss-loader!stylefmt-loader',
+          use:
+            'css-loader?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64]!postcss-loader!stylefmt-loader',
         }),
       },
     ],
@@ -98,6 +99,7 @@ if (isDevelopment) {
     new StyleLintPlugin(),
   ]);
 } else {
+  webpackConfig.output.filename = '[name].[chunkhash].js';
   webpackConfig.plugins = webpackConfig.plugins.concat([
     new CleanWebpackPlugin([buildPath]),
     new webpack.DefinePlugin({
