@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - "7"
 script: npm run lint
+after_success:
+  - npm run deploy
+  - node node_modules/lighthouse-ci/runlighthouse.js https://react-hn.now.sh
 cache:
   directories:
     - "node_modules"
