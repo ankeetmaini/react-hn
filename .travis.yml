@@ -1,10 +1,15 @@
 language: node_js
 node_js:
-  - "7"
+- '7'
 script: npm run lint
-after_success:
-  - npm run deploy
-  - node node_modules/lighthouse-ci/runlighthouse.js https://react-hn.now.sh
+after_script:
+  - NOW_ALIAS=react-hn node_modules/.bin/now-travis
+branches:
+  only:
+    - master
 cache:
   directories:
-    - "node_modules"
+  - node_modules
+env:
+  global:
+    secure: jMH9lqo0E83BhZR8oZiXM5Cu2gm6oVpCBwqpKnCUBAyf9lbn6isnCzQIVfLSMF3K6vqcDquDqtz5DmcvsXehfOafb93VQmsic5i3/htKvnLCNDRLpAGLsku5YFiHf78ZtUKEx6tXP3SHl97gBnH/5fPrZVFU1aj9ltjLSwDDkb8EKEVAY7V8avPeZnKxWS8UTsZyqYobu7EC9BN/vUQuz1/lEUxCHv7R0cWAhd1UZIOMvcH2M3Zsm5y3ep3z7qVW+lujpdVChMvqgDbSlO9azVSMErTVRxuh8ancw3lHQkUlJXbxRkyHdnvYnArBxKZN8LwfOUZjWM4W2UmWRn04R5x+9pwbynxycfwEx9knW8NhM9bHtXLIec/0uFth2mk1Z8qOdjtoIdJlUpd6vdXy5EOtUZ2GfThe+7hI3rjZqf7ELjxxTAUEhj6x2zSfy+W69G3LsKJpKL6FuCCBwwKYX4Sos3VmG7atj7fdj/EW2BTJdYLgxqjS8MA9VQHkf8BdyYLynAz+29Ka/fYI4Ggix2ARWfybkF8GlpIJRn2/HmqGZm7orfk7H6airqa1+EhDuP2fuFfCWaXNwDsR0m27290CTrK6dQQIV2ULFV/wQi1lXr/6ajD9ySmg1327g466istDLEPn+OBrEJqnp3stL4k9QeAkXpH4Q3qDNIjA+8s=
