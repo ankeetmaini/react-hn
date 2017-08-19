@@ -2,22 +2,14 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const bodyParser = require('body-parser');
-const https = require('https');
-const fs = require('fs');
 const fetch = require('./src/utils/fetch');
 
-const BASE_URL = 'https://hacker-news.firebaseio.com/v0';
-
 const env = process.env.NODE_ENV;
+const BASE_URL = process.env.SERVER;
 const isDevelopment = env !== 'production';
 const port = isDevelopment ? 3000 : process.env.PORT;
 const app = express();
 const publicPath = path.resolve(__dirname, 'public');
-
-const httpsOptions = {
-  key: fs.readFileSync('./certificates/key.pem'),
-  cert: fs.readFileSync('./certificates/cert.pem'),
-};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -97,7 +89,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-https.createServer(httpsOptions, app).listen(port, () => {
+app.listen(port, () => {
   if (isDevelopment) {
     const open = require('open');
     open('https://localhost:3000');
