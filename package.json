@@ -63,7 +63,7 @@
     "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git",
     "lint-staged": "^3.5.1",
     "now": "^7.3.0",
-    "now-travis": "^1.0.1",
+    "now-travis": "git+https://github.com/ankeetmaini/now-travis.git",
     "open": "0.0.5",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^10.0.0",
@@ -80,7 +80,8 @@
     "unused-files-webpack-plugin": "^3.0.1",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "yargs": "^8.0.2"
   },
   "babel": {
     "presets": [
