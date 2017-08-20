@@ -15,13 +15,7 @@ const nowUrl = fs.readFileSync(file).toString();
 if (!nowUrl) process.exit(1);
 
 const lighthouseCi = path.resolve(__dirname, 'node_modules', 'lighthouse-ci');
-const child = childProcess.fork(lighthouseCi, [
-  '--score',
-  93,
-  '--runner',
-  'wpt',
-  nowUrl,
-]);
+const child = childProcess.fork(lighthouseCi, ['--score', 93, nowUrl]);
 
 child.on('error', (err) => {
   console.error(err);
