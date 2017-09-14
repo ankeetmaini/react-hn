@@ -3,7 +3,7 @@ node_js:
   - '7'
 script: npm run lint
 after_script:
-  - NOW_ALIAS=react-hn node_modules/.bin/now-travis --file=now_url
+  - NOW_ALIAS=react-hn-ankeetmaini node_modules/.bin/now-travis --file=now_url
   - ./run-lighthouse.js --file=now_url
 branches:
   only:
