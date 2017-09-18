@@ -7,7 +7,7 @@ npm start
 if you're building it for the first time you'll get this error
 `Error: ENOENT: no such file or directory` which is because `index.html` doesn't exist.
 
-Calm down and do `npm run build && npm run start`
+Calm down and do `./node_modules/.bin/webpack && npm run start`
 
 ## global styles - whose classnames are not changed by post-css
 - app can have at most one global stylesheet
