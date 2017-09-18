@@ -13,8 +13,7 @@
     "start": "SERVER=https://hacker-news.firebaseio.com/v0/ node --harmony_trailing_commas server.js",
     "now-start": "NODE_ENV=production node --harmony_trailing_commas server.js",
     "precommit": "lint-staged",
-    "prettify": "./node_modules/.bin/prettier --write src/**/*.js",
-    "deploy": "./node_modules/.bin/now --public && ./node_modules/.bin/now alias"
+    "prettify": "./node_modules/.bin/prettier --write src/**/*.js"
   },
   "now": {
     "env": {
