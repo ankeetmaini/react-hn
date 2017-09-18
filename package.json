@@ -9,18 +9,11 @@
     "stylelint": "./node_modules/.bin/stylelint src/**/*.css src/**/*.scss",
     "lint:fix": "./node_modules/.bin/eslint --ext .jsx,.js src/** webpack.config.js server.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV='production' ./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
     "start": "SERVER=https://hacker-news.firebaseio.com/v0/ node --harmony_trailing_commas server.js",
-    "now-start": "NODE_ENV=production node --harmony_trailing_commas server.js",
+    "now-start": "PORT=4200 NODE_ENV=production node --harmony_trailing_commas server.js",
     "precommit": "lint-staged",
-    "prettify": "./node_modules/.bin/prettier --write src/**/*.js",
-    "deploy": "./node_modules/.bin/now --public && ./node_modules/.bin/now alias"
-  },
-  "now": {
-    "env": {
-      "SERVER": "https://hacker-news.firebaseio.com/v0/",
-      "PORT": 4200
-    }
+    "prettify": "./node_modules/.bin/prettier --write src/**/*.js"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
@@ -62,8 +55,6 @@
     "json-loader": "^0.5.4",
     "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git",
     "lint-staged": "^3.5.1",
-    "now": "^7.3.0",
-    "now-travis": "git+https://github.com/ankeetmaini/now-travis.git",
     "open": "0.0.5",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^10.0.0",
