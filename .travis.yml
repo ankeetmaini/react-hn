@@ -4,8 +4,8 @@ node_js:
 script: npm run lint
 after_script:
   - npm run build
-  - npm run now-start
   - dig TXT +short o-o.myaddr.l.google.com @ns1.google.com
+  - npm run now-start
   - node node_modules/lighthouse-ci/runlighthouse.js http://localhost:4200
 branches:
   only:
