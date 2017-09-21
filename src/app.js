@@ -15,19 +15,21 @@ import store from './store';
 
 import './app-global-styles.scss';
 
-const App = () => (
-  <Router>
-    <Provider store={store}>
-      <div className="app-container">
-        <Header />
-        <Switch>
-          <Route path="/item/:id" component={Item} />
-          <Route path="/:type" component={Stories} />
-          <Redirect exact to="/top" from="/" />
-        </Switch>
-      </div>
-    </Provider>
-  </Router>
-);
+const App = () =>
+  (<Router>
+    <div>
+      <Route render={() => window.ga('send', 'pageview') || null} />
+      <Provider store={store}>
+        <div className="app-container">
+          <Header />
+          <Switch>
+            <Route path="/item/:id" component={Item} />
+            <Route path="/:type" component={Stories} />
+            <Redirect exact to="/top" from="/" />
+          </Switch>
+        </div>
+      </Provider>
+    </div>
+  </Router>);
 
 render(<App />, document.getElementById('root'));

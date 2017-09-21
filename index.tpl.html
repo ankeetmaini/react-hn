@@ -7,6 +7,25 @@
     <meta name="description" content="Hacker News">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <!-- Google Analytics -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-61474244-3', 'auto');
+    // log JS errors
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      ga('send', 'exception', {
+        'exDescription': msg,
+        'exFatal': false,
+        url: url,
+        lineNo: lineNo,
+        columnNo: columnNo,
+        error: JSON.stringify(error)
+      });
+      return false;
+    }
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <!-- End Google Analytics -->
   <body>
     <div id="root"></div>
   </body>
